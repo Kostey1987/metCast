@@ -1,6 +1,7 @@
 {
   "name": "metcast",
   "private": true,
+  "homepage": "https://Kostey1987.github.io/metCast",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
@@ -11,7 +12,6 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
-  "homepage": "https://Kostey1987.github.io/metCast",
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
