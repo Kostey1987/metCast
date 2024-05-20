@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, IconButton, Slider, Typography } from "@mui/material";
+import { Box, IconButton, Slider, Typography, styled } from "@mui/material";
 import { PlayArrow, Pause, VolumeUp } from "@mui/icons-material";
 
 const tracks = [
@@ -9,11 +9,30 @@ const tracks = [
   },
 ];
 
-export default function MusicPlayer() {
+const PurpleVolumeUp = styled(VolumeUp)({
+  color: "#8A2BE2",
+  textShadow: "0 0 5px #8A2BE2, 0 0 10px #8A2BE2, 0 0 20px #8A2BE2",
+});
+
+const MusicPlayer = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = React.useState(0);
   const [playing, setPlaying] = React.useState(false);
   const [volume, setVolume] = React.useState(30);
   const audioRef = React.useRef(new Audio(tracks[currentTrackIndex].src));
+
+  React.useEffect(() => {
+    const audio = audioRef.current;
+
+    const handleEnded = () => {
+      setPlaying(false);
+    };
+
+    audio.addEventListener("ended", handleEnded);
+
+    return () => {
+      audio.removeEventListener("ended", handleEnded);
+    };
+  }, []);
 
   const handlePlayPause = () => {
     if (playing) {
@@ -64,7 +83,7 @@ export default function MusicPlayer() {
         {playing ? <Pause /> : <PlayArrow />}
       </IconButton>
       <Box sx={{ width: 200 }}>
-        <VolumeUp />
+        <PurpleVolumeUp />
         <Slider
           value={volume}
           onChange={handleVolumeChange}
@@ -72,19 +91,21 @@ export default function MusicPlayer() {
         />
       </Box>
       {/* <Box sx={{ marginTop: 2 }}>
-        {tracks.map((track, index) => (
-          <Typography
-            key={index}
-            onClick={() => handleTrackChange(index)}
-            style={{
-              cursor: "pointer",
-              color: currentTrackIndex === index ? "#ff69b4" : "inherit",
-            }}
-          >
-            {track.title}
-          </Typography>
-        ))}
-      </Box> */}
+          {tracks.map((track, index) => (
+            <Typography
+              key={index}
+              onClick={() => handleTrackChange(index)}
+              style={{
+                cursor: "pointer",
+                color: currentTrackIndex === index ? "#ff69b4" : "inherit",
+              }}
+            >
+              {track.title}
+            </Typography>
+          ))}
+        </Box> */}
     </Box>
   );
-}
+};
+
+export default MusicPlayer;
