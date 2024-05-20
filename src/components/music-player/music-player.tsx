@@ -5,7 +5,7 @@ import { PlayArrow, Pause, VolumeUp } from "@mui/icons-material";
 const tracks = [
   {
     title: "Track1",
-    src: "../../../public/electricDreams.mp3",
+    src: "/electricDreams.mp3",
   },
 ];
 
