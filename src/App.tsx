@@ -1,9 +1,17 @@
 import React, { useState } from "react";
-import { Box, Container, CssBaseline, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  Grid,
+  Typography,
+} from "@mui/material";
 import WeatherForm from "./components/weather-form/weather-form";
 import WeatherList from "./components/weather-list/wether-list";
 import { useGetWeatherByCityQuery } from "./services/api";
 import NeonBorder from "./components/neon-border/neon-border";
+import MusicPlayer from "./components/music-player/music-player";
 
 function App() {
   const [city, setCity] = useState("Moscow");
@@ -17,6 +25,7 @@ function App() {
   return (
     <>
       <CssBaseline />
+
       <Box
         sx={{
           display: "flex",
@@ -28,6 +37,7 @@ function App() {
           borderRadius: "20px",
           boxShadow: "0 0 20px 5px rgba(0, 0, 100, 0.5)",
           position: "relative",
+          padding: 3,
         }}
       >
         <NeonBorder />
@@ -47,12 +57,35 @@ function App() {
           <WeatherForm onSubmit={searchWeatherByCity} />
 
           <Grid item xs={12} style={{ marginTop: "20px" }}>
-            {isLoading && <Typography>Загрузка...</Typography>}
+            {isLoading && (
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                }}
+              >
+                <CircularProgress color="primary" />
+                <Typography
+                  variant="h6"
+                  mt={2}
+                  style={{
+                    fontFamily: '"Jersey 15", sans-serif',
+                  }}
+                >
+                  Loading...
+                </Typography>
+              </Box>
+            )}
             {isError && (
-              <Typography>Ошибка получения данных о погоде</Typography>
+              <Typography variant="h6">
+                Ошибка получения данных о погоде
+              </Typography>
             )}
             {weathers && <WeatherList weather={weathers} />}
           </Grid>
+          <MusicPlayer />
         </Container>
       </Box>
     </>
