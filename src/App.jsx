@@ -8,14 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import WeatherForm from "./components/weather-form/weather-form";
-import WeatherList from "./components/weather-list/wether-list";
+import WeatherList from "./components/weather-list/weather-list";
 import { useGetWeatherByCityQuery } from "./services/api";
 import NeonBorder from "./components/neon-border/neon-border";
 import MusicPlayer from "./components/music-player/music-player";
 
-function App() {
-  const [city, setCity] = useState("Moscow");
-
+const App = () => {
+  const [city, setCity] = useState("Sochi");
   const { data: weathers, isLoading, isError } = useGetWeatherByCityQuery(city);
 
   const searchWeatherByCity = (city) => {
@@ -25,7 +24,6 @@ function App() {
   return (
     <>
       <CssBaseline />
-
       <Box
         sx={{
           display: "flex",
@@ -38,6 +36,10 @@ function App() {
           boxShadow: "0 0 20px 5px rgba(0, 0, 100, 0.5)",
           position: "relative",
           padding: 3,
+          "@media (max-width: 600px)": {
+            width: "90%",
+            margin: "0 auto",
+          },
         }}
       >
         <NeonBorder />
@@ -52,6 +54,15 @@ function App() {
             }}
           >
             MetCast
+          </Typography>
+          <Typography
+            sx={{
+              color: "#39ff14",
+              textAlign: "left",
+              marginLeft: "12px",
+            }}
+          >
+            Чтобы узнать погоду:
           </Typography>
 
           <WeatherForm onSubmit={searchWeatherByCity} />
@@ -90,6 +101,6 @@ function App() {
       </Box>
     </>
   );
-}
+};
 
 export default App;

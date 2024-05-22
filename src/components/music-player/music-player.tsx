@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Box, IconButton, Slider, Typography, styled } from "@mui/material";
 import { PlayArrow, Pause, VolumeUp } from "@mui/icons-material";
 
@@ -15,10 +15,10 @@ const PurpleVolumeUp = styled(VolumeUp)({
 });
 
 const MusicPlayer = () => {
-  const [currentTrackIndex, setCurrentTrackIndex] = React.useState(0);
-  const [playing, setPlaying] = React.useState(false);
-  const [volume, setVolume] = React.useState(30);
-  const audioRef = React.useRef(new Audio(tracks[currentTrackIndex].src));
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [volume, setVolume] = useState(30);
+  const audioRef = useRef(new Audio(tracks[currentTrackIndex].src));
 
   React.useEffect(() => {
     const audio = audioRef.current;
